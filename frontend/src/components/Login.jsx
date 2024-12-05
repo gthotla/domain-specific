@@ -7,32 +7,45 @@ import {
   Linkedin, 
   AlertTriangle 
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
-  const [message,setMessage]=useState('');
+  const [message, setMessage] = useState('');
+  
+  // Add navigation hook
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try{
-      const response = await axios.post('http://127.0.0.1:5000/user/login',{email,password}, {
+    try {
+      const response = await axios.post('http://127.0.0.1:5000/user/login', { email, password }, {
         headers: {
           'Content-Type': 'application/json',
-        }});
-      if(response.status==200){
-        setMessage('Login succesful');
-      }
-      else{
+        }
+      });
+      
+      if (response.status === 200) {
+        setMessage('Login successful');
+        // Optional: Add navigation logic after successful login
+        // navigate('/dashboard');
+        navigate('/')
+      } else {
         setMessage(response);
       }
-    }
-    catch(error){
-      setMessage('An error occured');
+    } catch (error) {
+      setMessage('An error occurred');
       console.log(error);
     }
+  };
+
+  // Handler for navigating to signup page
+  const handleSignupNavigation = () => {
+    navigate('/signup');
   };
 
   return (
@@ -167,14 +180,14 @@ const Login = () => {
           <div className="text-center">
             <p className="mt-2 text-sm text-gray-500">
               Don't have an account?{' '}
-              <a 
-                href="#" 
+              <button 
+                onClick={handleSignupNavigation}
                 className="font-medium text-blue-500 hover:text-blue-400"
               >
                 Sign up
-              </a>
+              </button>
             </p>
-            {message && <p>{message}</p>}
+            {message && <p className="text-center mt-2 text-green-500">{message}</p>}
           </div>
         </div>
       </div>
