@@ -1,8 +1,12 @@
 from pymongo import MongoClient
 from datetime import datetime
+import os
 
-# Connect to MongoDB
-client = MongoClient('mongodb+srv://REDACTED_CREDENTIALS@cluster0.z7w1qa9.mongodb.net/domain')
+# Connect to MongoDB (URI comes from the MONGO_URI env var — never hardcode it)
+mongo_uri = os.environ.get("MONGO_URI")
+if not mongo_uri:
+    raise RuntimeError("MONGO_URI environment variable is not set")
+client = MongoClient(mongo_uri)
 db = client['domain']
 
 # Revised user schema
