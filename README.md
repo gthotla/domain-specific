@@ -16,7 +16,7 @@ optional LoRA fine-tuning workflow and an admin dashboard.
   `trl.SFTTrainer`, rank 16) on curated data (default base
   `unsloth/Meta-Llama-3.1-8B`) to adapt tone/terminology per domain.
 - **Auth** — email/password (bcrypt) + Google and GitHub OAuth; JWT in
-  `httpOnly` cookies (30-day expiry); separate user and admin middleware.
+  `httpOnly` cookies; separate user and admin middleware.
 - **Admin dashboard** — manage documents, users, and model behavior (React UI).
 
 ## Architecture
